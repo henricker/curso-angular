@@ -1,5 +1,11 @@
+import { Alerta } from './../../shared/models/Alerta';
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FilmesService } from "src/app/core/filmes.service";
+import { Filme } from "src/app/shared/models/Filme";
+import { MatDialog } from '@angular/material/dialog';
+import { AlertaComponent } from 'src/app/shared/components/alerta/alerta.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: "dio-cadastro-filmes",
@@ -10,7 +16,12 @@ export class CadastroFilmesComponent implements OnInit {
   cadastro: FormGroup;
   generos: Array<string>;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private filmeService: FilmesService,
+    private dialog: MatDialog,
+    private router: Router,
+  ) {}
 
   get f() {
     return this.cadastro.controls;
@@ -37,12 +48,50 @@ export class CadastroFilmesComponent implements OnInit {
     this.generos = ['Ação', 'Romance', 'Aventura', 'Terror', 'Ficção cientifica', 'Comédia', 'Aventura', 'Drama'];
   }
 
-  salvar(): void {
-    if(this.cadastro.invalid) {
+  submit(): void {
+    this.cadastro.markAllAsTouched();
+    if (this.cadastro.invalid) {
       return;
     }
 
-    alert(JSON.stringify(this.cadastro.value))
+    const filme = this.cadastro.getRawValue() as Filme;
+    this.salvar(filme);
+
+  }
+
+  salvar(filme: Filme): void {
+    this.filmeService.salvar(filme).subscribe(() => {
+      const config = {
+        data: {
+          btnSucesso: 'Ir para a listagem',
+          btnCancelar: 'Cadastrar um novo filme',
+          colorBtnCancelar: 'primary',
+          possuirBtnFechar: true
+        } as Alerta
+      };
+
+      const dialogRef = this.dialog.open(AlertaComponent, config);
+      dialogRef.afterClosed().subscribe((opcao: boolean) => {
+        if(opcao)
+          this.router.navigateByUrl('filmes');
+        else
+          this.reiniciarForm();
+      });
+    },
+    () => {
+      const config = {
+        data: {
+          titulo: 'Erro ao salvar o registro',
+          descricao: 'Não conseguimos salvar seu registro, favor tentar novamente mais tarde',
+          corBtnSucesso: 'warn',
+          btnSucesso: 'Fechar'
+        } as Alerta
+      }
+
+      this.dialog.open(AlertaComponent, config);
+    });
+
+
   }
 
   reiniciarForm(): void {
