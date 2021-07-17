@@ -109,26 +109,6 @@
       "urlIMDb": "https://www.imdb.com/title/tt2527338/?ref_=vi_md_ti",
       "genero": "Aventura",
       "id": 11
-    },
-    {
-      "titulo": "Jungle Cruise",
-      "urlFoto": "https://m.media-amazon.com/images/M/MV5BNDE1MGRlNTQtZjc4ZC00MTI0LWEwY2MtODk1YTM2NmFmYTNmXkEyXkFqcGdeQXVyODk4OTc3MTY@._V1_UX67_CR0,0,67,98_AL_.jpg",
-      "dtLancamento": "2021-07-29T03:00:00.000Z",
-      "descricao": "Based on Disneyland's theme park ride where a small riverboat takes a group of travelers through a jungle filled with dangerous animals and reptiles but with a supernatural element.",
-      "nota": 6,
-      "urlIMDb": "https://www.imdb.com/title/tt0870154/?ref_=rlm",
-      "genero": "Aventura",
-      "id": 12
-    },
-    {
-      "titulo": "asdasd",
-      "urlFoto": "",
-      "dtLancamento": "2021-07-15T03:00:00.000Z",
-      "descricao": "asdasdsadasdasd",
-      "nota": 5,
-      "urlIMDb": "",
-      "genero": "Comédia",
-      "id": 13
     }
   ]
 }
